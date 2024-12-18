@@ -65,3 +65,24 @@ df['species'].value_counts()
 
 df.sample(10)
 
+#Solving AttributeError: 'numpy.ndarray' object has no attribute 'map'
+# Loading the Iris dataset
+from sklearn.datasets import load_iris
+import pandas as pd
+
+iris = load_iris()
+
+# Convert to pandas DataFrame
+df = pd.DataFrame(data=iris.data, columns=iris.feature_names)
+
+# Map target values to species names
+species_names = {0: 'setosa', 1: 'versicolor', 2: 'virginica'}
+df['species'] = pd.Series(iris.target).map(species_names)
+
+# Display the first few rows of the dataset to verify species is added
+print(df.head())
+
+# Now perform groupby operation
+species_group = df.groupby('species').mean()
+print(species_group)
+
